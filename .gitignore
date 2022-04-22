@@ -1,0 +1,5 @@
+# MetaCoin project
+
+/MetaCoin/build
+/MetaCoin/migrations
+/MetaCoin/truffle-config.js
