@@ -5,7 +5,7 @@ contract Owner {
 
   address m_owner;
 
-  constructor() public {
+  constructor()  {
     m_owner = msg.sender;
   }
 
