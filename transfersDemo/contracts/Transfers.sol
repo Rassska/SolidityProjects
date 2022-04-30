@@ -27,7 +27,7 @@ contract Transfers {
         _;
     }
 
-    function getTransfer(uint8 _index) internal view returns(Transfer memory) {
+    function getTransfer(uint8 _index) public view returns(Transfer memory) {
         require(_index < transfers.length, "Index out of the range!");
         return transfers[_index];
     }
@@ -38,7 +38,7 @@ contract Transfers {
 
     receive() external payable {
         if (++currTransfersAmount > maxTransfersAmount) {
-            revert(string(abi.encodePacked("Sorry, cannot accept more than: ", Strings.toString(maxTransfersAmount), string("transfers!"))));
+            revert(string(abi.encodePacked("Sorry, cannot accept more than: ", Strings.toString(maxTransfersAmount), string(" transfers!"))));
         }
 
         Transfer memory newTransfer = Transfer(msg.value, block.timestamp, msg.sender);
