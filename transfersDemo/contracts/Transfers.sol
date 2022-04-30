@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.0;
 import "hardhat/console.sol";
-import "node_modules/@openzeppelin/contracts/utils/Strings.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract Transfers {
 
