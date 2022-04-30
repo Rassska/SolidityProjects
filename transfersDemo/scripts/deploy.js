@@ -9,7 +9,7 @@ async function main() {
   const transfers = await Transfers.deploy(5)
   await transfers.deployed()
 
-  console.log(transfers.address)
+  console.log("Deployed contract address: ", transfers.address)
 }
 
 
