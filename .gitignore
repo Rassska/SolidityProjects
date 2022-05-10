@@ -10,4 +10,8 @@
 **/artifacts
 **/package.json
 **/package-lock.json
+**/soljson*
 **/hardhat.config.js
+
+# VS code files
+**/.vscode
