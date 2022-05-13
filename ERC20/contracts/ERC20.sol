@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 
 import "./IERC20.sol";
 
+
 contract ERC20 is IERC20 {
     
     mapping (address => uint256) private __balances;
@@ -56,6 +57,16 @@ contract ERC20 is IERC20 {
     function approve(address _spender, uint256 _amount) public virtual override returns(bool) {
         __approve(msg.sender, _spender, _amount);
         return true;
+    }
+
+    function mint(address _account, uint256 _amount) internal virtual {
+        require(_account != address(0), "ERC20: mint to the zero address");
+
+        __totalSupply += _amount;
+        __balances[_account] += _amount;
+
+        emit Transfer(address(0), _account, _amount);
+
     }
 
     // internal functions
