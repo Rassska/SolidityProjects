@@ -59,7 +59,10 @@ contract ERC20 is IERC20 {
         return true;
     }
 
-    function mint(address _account, uint256 _amount) internal virtual {
+
+    // internal functions
+
+    function __mint(address _account, uint256 _amount) internal virtual {
         require(_account != address(0), "ERC20: mint to the zero address");
 
         __totalSupply += _amount;
@@ -69,8 +72,18 @@ contract ERC20 is IERC20 {
 
     }
 
-    // internal functions
+    function __burn(address _account, uint256 _amount) internal virtual {
+        require(_account != address(0), "ERC20: burn from the zero address");
+        require(balanceOf[_account] >= _amount, "ERC20: burn amount exceeds current balance");
 
+        __totalSupply -= _amount;
+        unchecked {
+            __balances[_account] -= _amount;
+            
+        }
+        emit Transfer(_account, address(0), _amount);
+
+    }
 
     function __transfer(address _from, address _to, uint256 _amount) internal virtual{
 
