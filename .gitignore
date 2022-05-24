@@ -15,3 +15,6 @@
 
 # VS code files
 **/.vscode
+
+# Scaffold-eth environment
+**/scaffold-eth
