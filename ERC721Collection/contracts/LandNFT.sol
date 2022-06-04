@@ -7,17 +7,17 @@ import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 
-uint256 constant _maxSupply = 1500000000; // upper bound
+uint256 constant maxSupply = 1500000000; // upper bound
 
 contract LandNFT is Initializable, ERC721Upgradeable, OwnableUpgradeable, UUPSUpgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
-    using Strings for uint256;
+    using StringsUpgradeable for uint256;
 
-    CountersUpgradeable.Counter private _tokenIdCounter;
-    string public _uriSuffix = ".json";
-    string public _baseURI = "https://gateway.pinata.cloud/ipfs/QmNd5MKmkM4VhXgo9J9DvGEAM4XWZwyvBVtZ1K6iAjEkhr/";
+    CountersUpgradeable.Counter private tokenIdCounter;
+    string public uriSuffix = ".json";
+    string public baseURI = "https://gateway.pinata.cloud/ipfs/QmNd5MKmkM4VhXgo9J9DvGEAM4XWZwyvBVtZ1K6iAjEkhr/";
   
-    uint256 public _maxMintAmountPerTx = 10000;
+    uint256 public maxMintAmountPerTx = 10000;
 
 
     constructor() {
@@ -38,18 +38,18 @@ contract LandNFT is Initializable, ERC721Upgradeable, OwnableUpgradeable, UUPSUp
     {}
 
 
-    modifier mintCompliance(uint256 mintAmount) {
-        require(mintAmount > 0 && mintAmount <= _maxMintAmountPerTx, "Invalid mint amount!");
-        require(_tokenIdCounter.current() + mintAmount <= _maxSupply, "Max supply exceeded!");
+    modifier mintCompliance(uint256 _mintAmount) {
+        require(_mintAmount > 0 && _mintAmount <= maxMintAmountPerTx, "Invalid mint amount!");
+        require(tokenIdCounter.current() + _mintAmount <= maxSupply, "Max supply exceeded!");
         _;
     }
 
-    function mintForAddress(uint256 mintAmount, address receiver) public mintCompliance(mintAmount) onlyOwner {
-        _mintLoop(receiver, mintAmount);
+    function mintForAddress(uint256 _mintAmount, address _receiver) public mintCompliance(_mintAmount) onlyOwner {
+        _mintLoop(_receiver, _mintAmount);
     }
 
     function totalSupply() public view returns (uint256) {
-        return _tokenIdCounter.current();
+        return tokenIdCounter.current();
     }
 
     function walletOfOwner(address _owner)
@@ -86,14 +86,13 @@ contract LandNFT is Initializable, ERC721Upgradeable, OwnableUpgradeable, UUPSUp
         
         require(_exists(_tokenId),"ERC721Metadata: URI query for nonexistent token");
 
-        string memory currentBaseURI = _baseURI();
-        return bytes(currentBaseURI).length > 0
-            ? string(abi.encodePacked(currentBaseURI, _tokenId.toString(), uriSuffix))
+        return bytes(baseURI).length > 0
+            ? string(abi.encodePacked(baseURI, _tokenId.toString(), uriSuffix))
             : "";
     }
 
     function setMaxMintAmountPerTx(uint256 _maxMintAmountPerTx) public onlyOwner {
-        maxMintAmountPerTx = _maxMintAmountPerTx;
+       maxMintAmountPerTx = _maxMintAmountPerTx;
     }
 
     function setBaseURI(string memory _newBaseURI) public onlyOwner {
@@ -104,14 +103,10 @@ contract LandNFT is Initializable, ERC721Upgradeable, OwnableUpgradeable, UUPSUp
         uriSuffix = _uriSuffix;
     }
 
-    function _baseURI() internal view override returns (string memory) {
-        return baseURI;
-    }
-
     function _mintLoop(address receiver, uint256 mintAmount) internal {
         for (uint256 i = 0; i < mintAmount; i++) {
-         _tokenIdCounter.increment();
-        _safeMint(receiver, _tokenIdCounter.current());
+         tokenIdCounter.increment();
+        _safeMint(receiver, tokenIdCounter.current());
         }
     }
 
