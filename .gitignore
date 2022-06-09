@@ -4,6 +4,7 @@
 **/truffle-config.js
 **/node_modules
 **/.env
+**/.openzeppelin
 
 #Hardhat files
 **/cache
@@ -18,3 +19,4 @@
 
 # Scaffold-eth environment
 **/scaffold-eth
+
