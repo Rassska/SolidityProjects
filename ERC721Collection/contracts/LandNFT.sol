@@ -14,12 +14,12 @@ contract LandNFT is Initializable, ERC721Upgradeable, OwnableUpgradeable, UUPSUp
     using StringsUpgradeable for uint256;
 
     CountersUpgradeable.Counter private tokenIdCounter;
-    string public uriSuffix = ".json";
-    string public baseURI = "https://gateway.pinata.cloud/ipfs/QmNd5MKmkM4VhXgo9J9DvGEAM4XWZwyvBVtZ1K6iAjEkhr/";
-  
-    uint256 public maxMintAmountPerTx = 10000;
+    string public uriSuffix;
+    string public baseURI;  
+    uint256 public maxMintAmountPerTx;
 
 
+    /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
     }
@@ -29,6 +29,9 @@ contract LandNFT is Initializable, ERC721Upgradeable, OwnableUpgradeable, UUPSUp
         __ERC721_init("LandNFT", "NFL");
         __Ownable_init();
         __UUPSUpgradeable_init();
+        uriSuffix = ".json";
+        baseURI = "https://gateway.pinata.cloud/ipfs/QmNd5MKmkM4VhXgo9J9DvGEAM4XWZwyvBVtZ1K6iAjEkhr/";
+        maxMintAmountPerTx = 10000;
     }
 
     function _authorizeUpgrade(address newImplementation)
@@ -51,6 +54,7 @@ contract LandNFT is Initializable, ERC721Upgradeable, OwnableUpgradeable, UUPSUp
     function totalSupply() public view returns (uint256) {
         return tokenIdCounter.current();
     }
+
 
     function walletOfOwner(address _owner)
         public
