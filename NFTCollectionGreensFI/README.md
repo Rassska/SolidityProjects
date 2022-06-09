@@ -1,15 +1,9 @@
-# Basic Sample Hardhat Project
+### GreensFI NFT collection
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, a sample script that deploys that contract, and an example of a task implementation, which simply lists the available accounts.
+This project contains 2 ERC1155 and ERC721 Upgradeable smart-contracts written in Solidity for Ethereum network.
 
-Try running some of the following tasks:
+- **ERC721 Upgradeable** can be found here:  [LandNFT](https://github.com/Rassska/SolidityProjects/blob/main/NFTCollectionGreensFI/contracts/LandNFT.sol)
 
-```shell
-npx hardhat accounts
-npx hardhat compile
-npx hardhat clean
-npx hardhat test
-npx hardhat node
-node scripts/sample-script.js
-npx hardhat help
-```
+- **ERC721 Upgradeable** can be found here:  [SeedNFT](https://github.com/Rassska/SolidityProjects/blob/main/NFTCollectionGreensFI/contracts/LandNFT.sol)
+
+
