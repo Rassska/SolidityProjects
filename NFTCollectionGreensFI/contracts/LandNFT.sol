@@ -55,7 +55,6 @@ contract LandNFT is Initializable, ERC721Upgradeable, OwnableUpgradeable, UUPSUp
         return tokenIdCounter.current();
     }
 
-
     function walletOfOwner(address _owner)
         public
         view
