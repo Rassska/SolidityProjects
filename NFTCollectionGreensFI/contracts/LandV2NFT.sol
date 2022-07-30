@@ -34,7 +34,7 @@ contract LandV2NFT is ERC721AUpgradeable, OwnableUpgradeable {
         if (_mintAmount <= 0 || _mintAmount > maxMintAmountPerTx) {
             revert InvalidMintAmountPerTx(maxMintAmountPerTx, _mintAmount);
         }
-        if (totalSupply() + _mintAmount <= maxSupply) {
+        if (totalSupply() + _mintAmount > maxSupply) {
             revert MaxSupplyExceeded(maxSupply, totalSupply() + _mintAmount);
         }
         _;
